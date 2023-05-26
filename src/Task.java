@@ -2,65 +2,78 @@ import java.util.UUID;
 
 public class Task {
 
-    private String id;
-    private String name;
-    private String description;
-    private Status status;
+  private String id;
+  private String name;
+  private String description;
+  private Status status;
 
-    public Task(String name, String description, Status status) {
-        this.id = UUID.randomUUID().toString();
-        this.name = name;
-        this.description = description;
-        this.status = status;
-    }
+  public Task(String name, String description, Status status, String id) {
+    this.id = id;
+    this.name = name;
+    this.description = description;
+    this.status = status;
+  }
 
-    public String getId() {
-        return id;
-    }
+  public Task(String name, String description, Status status) {
+    this.id = UUID.randomUUID().toString();
+    this.name = name;
+    this.description = description;
+    this.status = status;
+  }
 
-    public void setId(String id) {
-        this.id = id;
-    }
+  public Task(String name, String description) {
+    this.id = UUID.randomUUID().toString();
+    this.name = name;
+    this.description = description;
+  }
 
-    public String getName() {
-        return name;
-    }
+  public String getId() {
+    return id;
+  }
 
-    public void setName(String name) {
-        this.name = name;
-    }
+  public void setId(String id) {
+    this.id = id;
+  }
 
-    public String getDescription() {
-        return description;
-    }
+  public String getName() {
+    return name;
+  }
 
-    public void setDescription(String description) {
-        this.description = description;
-    }
+  public void setName(String name) {
+    this.name = name;
+  }
 
-    public Status getStatus() {
-        return status;
-    }
+  public String getDescription() {
+    return description;
+  }
 
-    public void setStatus(Status status) {
-        this.status = status;
-    }
+  public void setDescription(String description) {
+    this.description = description;
+  }
 
-    @Override
-    public String toString() {
-        return (
-                "Task{" +
-                        "id=" +
-                        id +
-                        ", name='" +
-                        name +
-                        '\'' +
-                        ", description='" +
-                        description +
-                        '\'' +
-                        ", status=" +
-                        status +
-                        '}'
-        );
-    }
+  public Status getStatus() {
+    return status;
+  }
+
+  //    public void setStatus(Status status) {
+  //        this.status = status;
+  //    }
+
+  @Override
+  public String toString() {
+    return (
+      "\nTask{" +
+      "id=" +
+      id +
+      ", name='" +
+      name +
+      '\'' +
+      ", description='" +
+      description +
+      '\'' +
+      ", status=" +
+      status +
+      '}'
+    );
+  }
 }
