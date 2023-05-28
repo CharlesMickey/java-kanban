@@ -1,88 +1,98 @@
+import java.util.ArrayList;
 import java.util.List;
 
 public class Epic extends Task {
 
-    private List<Subtask> subtasks;
-    private Status status;
+  private List<Subtask> subtasks;
+  private Status status;
 
-    public Epic(String name, String description, List<Subtask> subtasks) {
-        super(name, description);
-        this.subtasks = subtasks;
-        calculateStatus();
-        setEpicIdForSubtasks();
+  public Epic(String name, String description) {
+    super(name, description);
+    calculateStatus();
+  }
+
+  public List<Subtask> getSubtasks() {
+    return subtasks;
+  }
+
+  public void setSubtask(Subtask subtask) {
+    if (subtasks == null) {
+      subtasks = new ArrayList<>();
     }
+    subtasks.add(subtask);
+    calculateStatus();
+  }
 
-    public List<Subtask> getSubtasks() {
-        return subtasks;
+  public void deleteSubtask(Subtask subtask) {
+    if (subtask != null) {
+      subtasks.remove(subtask);
+      calculateStatus();
     }
+  }
 
-    public void setSubtasks(List<Subtask> subtasks) {
-        this.subtasks = subtasks;
-        calculateStatus();
-        setEpicIdForSubtasks();
+  public void deleteAllSubtask() {
+    if (subtasks != null) {
+      subtasks.clear();
     }
+    calculateStatus();
+  }
 
-    public void deleteSubtask(Subtask subtask) {
-        if (subtask != null) {
-            subtasks.remove(subtask);
-            calculateStatus();
-        }
+  public void updateSubtask(Subtask oldSubtask, Subtask newSubtask) {
+    int index = subtasks != null ? subtasks.indexOf(oldSubtask) : -1;
+    if (index != -1) {
+      subtasks.set(index, newSubtask);
     }
+  }
 
-    public void updateSubtask(Subtask oldSubtask, Subtask newSubtask) {
-        int index = subtasks.indexOf(oldSubtask);
-        if (index != -1) {
-            subtasks.set(index, newSubtask);
-        }
+  private void setStatus(Status status) {
+    this.status = status;
+  }
+
+  public void calculateStatus() {
+    if (subtasks == null || subtasks.isEmpty() || allSubtasksNew()) {
+      setStatus(Status.NEW);
+    } else if (allSubtasksDone()) {
+      setStatus(Status.DONE);
+    } else {
+      setStatus(Status.IN_PROGRESS);
     }
+  }
 
-    private void setStatus (Status status) {
-        this.status = status;
+  private boolean allSubtasksNew() {
+    for (Subtask subtask : subtasks) {
+      if (subtask.getStatus() != Status.NEW) {
+        return false;
+      }
     }
+    return true;
+  }
 
-    public void calculateStatus() {
-        if (subtasks.isEmpty() || allSubtasksNew()) {
-            setStatus(Status.NEW);
-        } else if (allSubtasksDone()) {
-            setStatus(Status.DONE);
-        } else {
-            setStatus(Status.IN_PROGRESS);
-        }
+  private boolean allSubtasksDone() {
+    for (Subtask subtask : subtasks) {
+      if (subtask.getStatus() != Status.DONE) {
+        return false;
+      }
     }
+    return true;
+  }
 
-    private boolean allSubtasksNew() {
-        for (Subtask subtask : subtasks) {
-            if (subtask.getStatus() != Status.NEW) {
-                return false;
-            }
-        }
-        return true;
-    }
-
-    private boolean allSubtasksDone() {
-        for (Subtask subtask : subtasks) {
-            if (subtask.getStatus() != Status.DONE) {
-                return false;
-            }
-        }
-        return true;
-    }
-
-    private void setEpicIdForSubtasks() {
-        for (Subtask subtask : subtasks) {
-            subtask.setEpicId(getId());
-        }
-    }
-
-
-    @Override
-    public String toString() {
-        return "\n Epic{" +
-                "id=" + getId() +
-                ", name='" + getName() + '\'' +
-                ", description='" + getDescription() + '\'' +
-                ", status=" + status +
-                ", subtasks=" + subtasks +
-                '}';
-    }
+  @Override
+  public String toString() {
+    return (
+      "\n Epic{" +
+      "id=" +
+      getId() +
+      ", name='" +
+      getName() +
+      '\'' +
+      ", description='" +
+      getDescription() +
+      '\'' +
+      ", status=" +
+      status +
+      ", subtasks=" +
+      subtasks +
+      '}'
+    );
+  }
 }

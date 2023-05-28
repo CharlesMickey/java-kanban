@@ -35,53 +35,42 @@ public class TaskManager {
   }
 
   public void setSubtasks(String id, Subtask subtask) {
-    subtasks.put(id, subtask);
+    Epic epic = (Epic) getTaskOfAnyTypeById(subtask.getEpicId());
+    if (epic != null) {
+      epic.setSubtask(subtask);
+      subtasks.put(id, subtask);
+    }
+    System.out.println("Нет эпика с таким id");
   }
 
   public ArrayList<Task> getAllEpics() {
-    ArrayList<Task> allEpics = new ArrayList<>();
-    for (Task epic : epics.values()) {
-      allEpics.add(epic);
-    }
-
-    return allEpics;
+    return new ArrayList<>(epics.values());
   }
 
   public ArrayList<Task> getAllTasks() {
-    ArrayList<Task> allTasks = new ArrayList<>();
-
-    for (Task task : tasks.values()) {
-      allTasks.add(task);
-    }
-
-    return allTasks;
+    return new ArrayList<>(tasks.values());
   }
 
   public ArrayList<Task> getAllSubtasks() {
-    ArrayList<Task> allSubtasks = new ArrayList<>();
-
-    for (Task subtask : subtasks.values()) {
-      allSubtasks.add(subtask);
-    }
-    return allSubtasks;
+    return new ArrayList<>(subtasks.values());
   }
 
   private void removeSubtasksByEpicId(String epicId) {
     subtasks.values().removeIf(subtask -> subtask.getEpicId().equals(epicId));
   }
 
-  public void deleteTaskById(String id) {
-    Task task = getTaskById(id);
+  public void deleteTaskOfAnyTypeById(String id) {
+    Task task = getTaskOfAnyTypeById(id);
 
     if (task instanceof Epic) {
       removeSubtasksByEpicId(id);
       epics.remove(id);
     } else if (task instanceof Subtask) {
-      subtasks.remove(id);
       Epic epic = epics.get(((Subtask) task).getEpicId());
       if (epic != null) {
         epic.deleteSubtask((Subtask) task);
       }
+      subtasks.remove(id);
     } else {
       tasks.remove(id);
     }
@@ -89,18 +78,25 @@ public class TaskManager {
 
   public void deleteAllSubtasks() {
     subtasks.clear();
+    for (Epic epic : epics.values()) {
+      epic.deleteAllSubtask();
+      epic.calculateStatus();
+    }
   }
+
+  /* Использовал deleteAllSubtasks чтобы не дублировать код.
+  Но после внесенных изменений лучше .cleare() (при условии что subtask не существует без epic)  */
 
   public void deleteAllEpics() {
     epics.clear();
-    deleteAllSubtasks();
+    subtasks.clear();
   }
 
   public void deleteAllTasks() {
     tasks.clear();
   }
 
-  public Task getTaskById(String id) {
+  public Task getTaskOfAnyTypeById(String id) {
     Task task = tasks.get(id);
     if (task == null) {
       task = epics.get(id);

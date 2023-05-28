@@ -14,6 +14,10 @@ public class Task {
     this.status = status;
   }
 
+  /*UUID использую для приближения к реальному id. 
+  Для отслеживания порядка и т.д. в дальнейшем (на мой взгляд)
+   лучше добавить поле с датой-временем создания таски*/
+
   public Task(String name, String description, Status status) {
     this.id = UUID.randomUUID().toString();
     this.name = name;
@@ -54,10 +58,6 @@ public class Task {
   public Status getStatus() {
     return status;
   }
-
-  //    public void setStatus(Status status) {
-  //        this.status = status;
-  //    }
 
   @Override
   public String toString() {
