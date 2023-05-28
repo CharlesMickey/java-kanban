@@ -1,3 +1,5 @@
+package model;
+
 import java.util.UUID;
 
 public class Task {
@@ -62,7 +64,7 @@ public class Task {
   @Override
   public String toString() {
     return (
-      "\nTask{" +
+      "\nmodel.Task{" +
       "id=" +
       id +
       ", name='" +

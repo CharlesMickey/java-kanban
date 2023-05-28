@@ -1,3 +1,5 @@
+package model;
+
 public class Subtask extends Task {
 
   // Забыл добавить private
@@ -39,7 +41,7 @@ public class Subtask extends Task {
   @Override
   public String toString() {
     return (
-      "\n Subtask{" +
+      "\n model.Subtask{" +
       "epicId=" +
       epicId +
       ", id=" +
