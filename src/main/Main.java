@@ -25,12 +25,14 @@ public class Main {
       Status.NEW,
       epic1.getId()
     );
+
     Subtask subtask2 = new Subtask(
       "Забронировать отель",
       "Забронировать номер в отеле в СПб",
       Status.NEW,
       epic1.getId()
     );
+
     Subtask subtask3 = new Subtask(
       "Купить краску",
       "Купить краску – фиолетовую",
