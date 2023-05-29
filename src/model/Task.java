@@ -1,7 +1,5 @@
 package model;
 
-import java.util.UUID;
-
 public class Task {
 
   private static int idCount = 0;
