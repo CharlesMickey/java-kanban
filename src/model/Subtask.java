@@ -2,39 +2,28 @@ package model;
 
 public class Subtask extends Task {
 
-  // Забыл добавить private
+  private Integer epicId;
 
-  private String epicId;
-
-  public Subtask(
-    String name,
-    String description,
-    Status status,
-    String epicId,
-    String id
+  public Subtask(String name, String description, Status status, Integer epicId, Integer id
   ) {
     super(name, description, status, id);
     this.epicId = epicId;
   }
 
-  public Subtask(
-    String name,
-    String description,
-    Status status,
-    String epicId
+  public Subtask(String name, String description, Status status, Integer epicId
   ) {
     super(name, description, status);
     this.epicId = epicId;
   }
 
-  public String getEpicId() {
+  public Integer getEpicId() {
     if (epicId != null) {
       return epicId;
     }
-    return "";
+    return null;
   }
 
-  public void setEpicId(String epicId) {
+  public void setEpicId(Integer epicId) {
     this.epicId = epicId;
   }
 

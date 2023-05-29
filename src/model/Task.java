@@ -3,13 +3,13 @@ package model;
 import java.util.UUID;
 
 public class Task {
-
-  private String id;
+  private static int idCount = 0;
+  private int id;
   private String name;
   private String description;
   private Status status;
 
-  public Task(String name, String description, Status status, String id) {
+  public Task(String name, String description, Status status, int id) {
     this.id = id;
     this.name = name;
     this.description = description;
@@ -21,23 +21,25 @@ public class Task {
    лучше добавить поле с датой-временем создания таски*/
 
   public Task(String name, String description, Status status) {
-    this.id = UUID.randomUUID().toString();
+    this.id = idCount + 1;
+    idCount++;
     this.name = name;
     this.description = description;
     this.status = status;
   }
 
   public Task(String name, String description) {
-    this.id = UUID.randomUUID().toString();
+    this.id = idCount + 1;
+    idCount++;
     this.name = name;
     this.description = description;
   }
 
-  public String getId() {
+  public int getId() {
     return id;
   }
 
-  public void setId(String id) {
+  public void setId(int id) {
     this.id = id;
   }
 

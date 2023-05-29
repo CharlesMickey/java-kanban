@@ -9,9 +9,9 @@ import model.Task;
 
 public class TaskManager {
 
-  private HashMap<String, Task> tasks;
-  private HashMap<String, Epic> epics;
-  private HashMap<String, Subtask> subtasks;
+  private HashMap<Integer, Task> tasks;
+  private HashMap<Integer, Epic> epics;
+  private HashMap<Integer, Subtask> subtasks;
 
   public TaskManager() {
     tasks = new HashMap<>();
@@ -19,33 +19,35 @@ public class TaskManager {
     subtasks = new HashMap<>();
   }
 
-  public HashMap<String, Task> getTasks() {
+  public HashMap<Integer, Task> getTasks() {
     return tasks;
   }
 
-  public void setTasks(String id, Task task) {
+  public void setTasks(Integer id, Task task) {
     tasks.put(id, task);
   }
 
-  public HashMap<String, Epic> getEpics() {
+  public HashMap<Integer, Epic> getEpics() {
     return epics;
   }
 
-  public void setEpics(String id, Epic epic) {
+  public void setEpics(Integer id, Epic epic) {
     epics.put(id, epic);
   }
 
-  public HashMap<String, Subtask> getSubtasks() {
+  public HashMap<Integer, Subtask> getSubtasks() {
     return subtasks;
   }
 
-  public void setSubtasks(String id, Subtask subtask) {
-    Epic epic = (Epic) getTaskOfAnyTypeById(subtask.getEpicId());
-    if (epic != null) {
+  public void setSubtasks(int id, Subtask subtask) {
+    Task task =  getTaskOfAnyTypeById(subtask.getEpicId());
+    if (task != null && task instanceof Epic) {
+      Epic epic = (Epic) task;
       epic.setSubtask(subtask);
       subtasks.put(id, subtask);
-    }
+    } else {
     System.out.println("Нет эпика с таким id");
+    }
   }
 
   public ArrayList<Task> getAllEpics() {
@@ -60,11 +62,11 @@ public class TaskManager {
     return new ArrayList<>(subtasks.values());
   }
 
-  private void removeSubtasksByEpicId(String epicId) {
+  private void removeSubtasksByEpicId(Integer epicId) {
     subtasks.values().removeIf(subtask -> subtask.getEpicId().equals(epicId));
   }
 
-  public void deleteTaskOfAnyTypeById(String id) {
+  public void deleteTaskOfAnyTypeById(Integer id) {
     Task task = getTaskOfAnyTypeById(id);
 
     if (task instanceof Epic) {
@@ -101,7 +103,7 @@ public class TaskManager {
     tasks.clear();
   }
 
-  public Task getTaskOfAnyTypeById(String id) {
+  public Task getTaskOfAnyTypeById(Integer id) {
     Task task = tasks.get(id);
     if (task == null) {
       task = epics.get(id);
@@ -116,7 +118,7 @@ public class TaskManager {
     return epics.get(epicId).getSubtasks();
   }
 
-  public void updateAnyTypeOfTask(String id, Task updatedTask) {
+  public void updateAnyTypeOfTask(Integer id, Task updatedTask) {
     if (tasks.containsKey(id)) {
       tasks.put(id, updatedTask);
     } else if (epics.containsKey(id)) {
