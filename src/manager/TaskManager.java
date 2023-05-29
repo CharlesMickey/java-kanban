@@ -91,9 +91,6 @@ public class TaskManager {
     }
   }
 
-  /* Использовал deleteAllSubtasks чтобы не дублировать код.
-  Но после внесенных изменений лучше .cleare() (при условии что subtask не существует без epic)  */
-
   public void deleteAllEpics() {
     epics.clear();
     subtasks.clear();

@@ -3,6 +3,7 @@ package model;
 import java.util.UUID;
 
 public class Task {
+
   private static int idCount = 0;
   private int id;
   private String name;
@@ -15,10 +16,6 @@ public class Task {
     this.description = description;
     this.status = status;
   }
-
-  /*UUID использую для приближения к реальному id. 
-  Для отслеживания порядка и т.д. в дальнейшем (на мой взгляд)
-   лучше добавить поле с датой-временем создания таски*/
 
   public Task(String name, String description, Status status) {
     this.id = idCount + 1;
