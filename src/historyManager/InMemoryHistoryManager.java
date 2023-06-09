@@ -6,7 +6,7 @@ import model.Task;
 
 public class InMemoryHistoryManager implements HistoryManager {
 
-  private List<Task> taskForHistory;
+  private final List<Task> taskForHistory;
 
   private final int MAX_ARRAY_ITEMS = 10;
 
@@ -16,7 +16,7 @@ public class InMemoryHistoryManager implements HistoryManager {
 
   @Override
   public List<Task> getHistory() {
-    return taskForHistory;
+    return new ArrayList<>(taskForHistory);
   }
 
   @Override

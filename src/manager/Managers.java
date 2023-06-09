@@ -3,7 +3,8 @@ package manager;
 import historyManager.HistoryManager;
 import historyManager.InMemoryHistoryManager;
 
-public final class Managers {
+// Добавил final чтобы случайно не создать подклассы этого класса или изменить его поведение
+public class Managers {
 
   public static TaskManager getDefault() {
     return new InMemoryTaskManager();

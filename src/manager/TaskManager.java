@@ -3,46 +3,50 @@ package manager;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+
+import historyManager.HistoryManager;
 import model.Epic;
 import model.Subtask;
 import model.Task;
 
 public interface TaskManager {
-  public HashMap<Integer, Task> getTasks();
+  HashMap<Integer, Task> getTasks();
 
-  public void setTasks(Integer id, Task task);
+  void setTask(Integer id, Task task);
 
-  public HashMap<Integer, Epic> getEpics();
+  HashMap<Integer, Epic> getEpics();
 
-  public void setEpics(Integer id, Epic epic);
+  void setEpic(Integer id, Epic epic);
 
-  public HashMap<Integer, Subtask> getSubtasks();
+  HashMap<Integer, Subtask> getSubtasks();
 
-  public void setSubtasks(int id, Subtask subtask);
+  void setSubtask(Integer id, Subtask subtask);
 
-  public ArrayList<Task> getAllEpics();
+  ArrayList<Task> getAllEpics();
 
-  public ArrayList<Task> getAllTasks();
+  ArrayList<Task> getAllTasks();
 
-  public ArrayList<Task> getAllSubtasks();
+  ArrayList<Task> getAllSubtasks();
 
-  public void deleteTaskOfAnyTypeById(Integer id);
+  void deleteTaskOfAnyTypeById(Integer id);
 
-  public void deleteAllSubtasks();
+  void deleteAllSubtasks();
 
-  public void deleteAllEpics();
+  void deleteAllEpics();
 
-  public void deleteAllTasks();
+  void deleteAllTasks();
 
-  public Task getTaskOfAnyTypeById(Integer id);
+  Task getTaskOfAnyTypeById(Integer id);
 
-  public Task getTask(Integer id);
+  Task getTask(Integer id);
 
-  public Subtask getSubtask(Integer id);
+  Subtask getSubtask(Integer id);
 
-  public Epic getEpic(Integer id);
+  Epic getEpic(Integer id);
 
-  public List<Subtask> getSubtasksByEpicId(String epicId);
+  List<Subtask> getSubtasksByEpicId(String epicId);
 
-  public void updateAnyTypeOfTask(Integer id, Task updatedTask);
+  void updateAnyTypeOfTask(Integer id, Task updatedTask);
+
+  HistoryManager getHistoryManager();
 }

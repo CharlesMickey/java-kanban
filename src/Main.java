@@ -1,4 +1,6 @@
 import manager.InMemoryTaskManager;
+import manager.Managers;
+import manager.TaskManager;
 import model.Epic;
 import model.Status;
 import model.Subtask;
@@ -7,7 +9,7 @@ import model.Task;
 public class Main {
 
   public static void main(String[] args) {
-    InMemoryTaskManager inMemoryTaskManager = new InMemoryTaskManager();
+    TaskManager inMemoryTaskManager =  Managers.getDefault();
     Task task = new Task("В магаз", "Купить 5 шоколадок", Status.NEW);
     Task task2 = new Task("В Макдак", "Купить пару флурри и роял", Status.NEW);
 
@@ -38,15 +40,15 @@ public class Main {
       epic2.getId()
     );
 
-    inMemoryTaskManager.setTasks(task.getId(), task);
-    inMemoryTaskManager.setTasks(task2.getId(), task2);
+    inMemoryTaskManager.setTask(task.getId(), task);
+    inMemoryTaskManager.setTask(task2.getId(), task2);
 
-    inMemoryTaskManager.setEpics(epic1.getId(), epic1);
-    inMemoryTaskManager.setEpics(epic2.getId(), epic2);
+    inMemoryTaskManager.setEpic(epic1.getId(), epic1);
+    inMemoryTaskManager.setEpic(epic2.getId(), epic2);
 
-    inMemoryTaskManager.setSubtasks(subtask1.getId(), subtask1);
-    inMemoryTaskManager.setSubtasks(subtask2.getId(), subtask2);
-    inMemoryTaskManager.setSubtasks(subtask3.getId(), subtask3);
+    inMemoryTaskManager.setSubtask(subtask1.getId(), subtask1);
+    inMemoryTaskManager.setSubtask(subtask2.getId(), subtask2);
+    inMemoryTaskManager.setSubtask(subtask3.getId(), subtask3);
 
     inMemoryTaskManager.getTask(1);
     inMemoryTaskManager.getTask(2);
