@@ -1,9 +1,11 @@
-package manager;
+package taskManager;
 
 import historyManager.HistoryManager;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+
+import manager.Managers;
 import model.Epic;
 import model.Subtask;
 import model.Task;

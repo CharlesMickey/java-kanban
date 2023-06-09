@@ -1,4 +1,4 @@
-package manager;
+package taskManager;
 
 import java.util.ArrayList;
 import java.util.HashMap;
