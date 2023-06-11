@@ -65,7 +65,7 @@ public class Main {
 
     System.out.println("\nИстория");
 
-    System.out.println(inMemoryTaskManager.getHistoryManager().getHistory());
+    System.out.println(inMemoryTaskManager.getHistory());
 
     System.out.println("\nДобавили");
     System.out.println(inMemoryTaskManager.getEpics());

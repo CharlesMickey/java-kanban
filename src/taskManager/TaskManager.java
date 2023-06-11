@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-import historyManager.HistoryManager;
 import model.Epic;
 import model.Subtask;
 import model.Task;
@@ -48,5 +47,5 @@ public interface TaskManager {
 
   void updateAnyTypeOfTask(Integer id, Task updatedTask);
 
-  HistoryManager getHistoryManager();
+ List<Task> getHistory();
 }
