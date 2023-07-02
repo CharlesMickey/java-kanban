@@ -78,7 +78,7 @@ public class InMemoryTaskManager implements TaskManager {
   private void removeSubtasksByEpicId(Integer epicId) {
     subtasks.values().removeIf(subtask -> {
       if(subtask.getEpicId().equals(epicId)) {
-        historyManager.remove(subtask.getEpicId());
+        historyManager.remove(subtask.getId());
         return true;
       } else {
         return false;

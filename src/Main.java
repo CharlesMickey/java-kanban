@@ -1,14 +1,14 @@
 import manager.Managers;
-import taskManager.TaskManager;
 import model.Epic;
 import model.Status;
 import model.Subtask;
 import model.Task;
+import taskManager.TaskManager;
 
 public class Main {
 
   public static void main(String[] args) {
-    TaskManager inMemoryTaskManager =  Managers.getDefault();
+    TaskManager inMemoryTaskManager = Managers.getDefault();
     Task task = new Task("В магаз", "Купить 5 шоколадок", Status.NEW);
     Task task2 = new Task("В Макдак", "Купить пару флурри и роял", Status.NEW);
 
@@ -107,5 +107,9 @@ public class Main {
     System.out.println(inMemoryTaskManager.getEpics());
     System.out.println(inMemoryTaskManager.getTasks());
     System.out.println(inMemoryTaskManager.getSubtasks());
+
+    System.out.println("\nИстория");
+
+    System.out.println(inMemoryTaskManager.getHistory());
   }
 }
