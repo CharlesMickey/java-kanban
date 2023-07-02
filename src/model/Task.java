@@ -1,11 +1,27 @@
 package model;
 
+import java.util.Objects;
+
 public class Task {
 
   private static int idCount = 0;
   private int id;
   private String name;
   private String description;
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+    Task task = (Task) o;
+    return id == task.id && Objects.equals(name, task.name) && Objects.equals(description, task.description);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(id, name, description);
+  }
+
   private Status status;
 
   public Task(String name, String description, Status status, int id) {
