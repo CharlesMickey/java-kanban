@@ -5,7 +5,6 @@ import historyManager.InMemoryHistoryManager;
 import taskManager.InMemoryTaskManager;
 import taskManager.TaskManager;
 
-// Добавил final чтобы случайно не создать подклассы этого класса или изменить его поведение
 public class Managers {
 
   public static TaskManager getDefault() {

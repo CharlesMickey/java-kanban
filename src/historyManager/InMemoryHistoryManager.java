@@ -40,6 +40,8 @@ public class InMemoryHistoryManager implements HistoryManager {
     taskList.linkLast(task);
   }
 
+  // Внутренний класс тут в рамках ТЗ. В учебном чате был легкий холивар на эту тему. Но ТЗ есть ТЗ
+
   private class CustomLinkedList {
 
     private Node head;
@@ -52,7 +54,7 @@ public class InMemoryHistoryManager implements HistoryManager {
 
       if (head == null) {
         head = newTail;
-      } else if (head != null && oldTail == null) {
+      } else if (oldTail == null) {
         head.next = newTail;
         newTail.prev = head;
         tail = newTail;
