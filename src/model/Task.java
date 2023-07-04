@@ -8,7 +8,6 @@ public class Task {
   private int id;
   private String name;
   private String description;
-
   private Status status;
 
   public Task(String name, String description, Status status, int id) {
