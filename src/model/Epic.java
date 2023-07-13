@@ -55,6 +55,11 @@ public class Epic extends Task {
     this.status = status;
   }
 
+  @Override
+  public Status getStatus() {
+    return status;
+  }
+
   public void calculateStatus() {
     if (subtasks == null || subtasks.isEmpty() || allSubtasksNew()) {
       setStatus(Status.NEW);
