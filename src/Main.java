@@ -1,24 +1,37 @@
 import manager.Managers;
-import model.Epic;
-import model.Status;
-import model.Subtask;
-import model.Task;
+import model.*;
 import taskManager.TaskManager;
 
 public class Main {
 
   public static void main(String[] args) {
     TaskManager inMemoryTaskManager = Managers.getDefault();
-    Task task = new Task("В магаз", "Купить 5 шоколадок", Status.NEW);
-    Task task2 = new Task("В Макдак", "Купить пару флурри и роял", Status.NEW);
+    Task task = new Task(
+      Type.TASK,
+      "В магаз",
+      "Купить 5 шоколадок",
+      Status.NEW
+    );
+    Task task2 = new Task(
+      Type.TASK,
+      "В Макдак",
+      "Купить пару флурри и роял",
+      Status.NEW
+    );
 
     Epic epic1 = new Epic(
+      Type.EPIC,
       "Подготовка к путешествию",
       "Подготовиться к поездке на озеро"
     );
-    Epic epic2 = new Epic("Ремонт в квартире", "Сделать ремонт в падике");
+    Epic epic2 = new Epic(
+      Type.EPIC,
+      "Ремонт в квартире",
+      "Сделать ремонт в падике"
+    );
 
     Subtask subtask1 = new Subtask(
+      Type.SUBTASK,
       "Купить билеты",
       "Купить билеты на поезд в Анапу",
       Status.NEW,
@@ -26,6 +39,7 @@ public class Main {
     );
 
     Subtask subtask2 = new Subtask(
+      Type.SUBTASK,
       "Забронировать отель",
       "Забронировать номер в отеле в СПб",
       Status.NEW,
@@ -33,6 +47,7 @@ public class Main {
     );
 
     Subtask subtask3 = new Subtask(
+      Type.SUBTASK,
       "Купить краску",
       "Купить краску – фиолетовую",
       Status.NEW,
@@ -75,6 +90,7 @@ public class Main {
     System.out.println("\nОбновили");
 
     Subtask subtask3Upd = new Subtask(
+      Type.SUBTASK,
       "Остаемся в Ленинграде",
       "Идем в Бикмагентс",
       Status.DONE,
@@ -83,6 +99,7 @@ public class Main {
     );
 
     Task taskUpd = new Task(
+      Type.TASK,
       "Лучше в погреб",
       "За свеклой",
       Status.IN_PROGRESS,

@@ -5,19 +5,22 @@ import java.util.Objects;
 public class Task {
 
   private static int idCount = 0;
+  private  Type type;
   private int id;
   private String name;
   private String description;
   private Status status;
 
-  public Task(String name, String description, Status status, int id) {
+  public Task(Type type, String name, String description, Status status, int id) {
+    this.type = type;
     this.id = id;
     this.name = name;
     this.description = description;
     this.status = status;
   }
 
-  public Task(String name, String description, Status status) {
+  public Task(Type type, String name, String description, Status status) {
+    this.type = type;
     this.id = idCount + 1;
     idCount++;
     this.name = name;
@@ -25,13 +28,17 @@ public class Task {
     this.status = status;
   }
 
-  public Task(String name, String description) {
+  public Task(Type type, String name, String description) {
+    this.type = type;
     this.id = idCount + 1;
     idCount++;
     this.name = name;
     this.description = description;
   }
 
+  public Type getType() {
+    return type;
+  }
   public int getId() {
     return id;
   }

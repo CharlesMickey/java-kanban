@@ -8,9 +8,14 @@ public class Epic extends Task {
   private List<Subtask> subtasks;
   private Status status;
 
-  public Epic(String name, String description) {
-    super(name, description);
+  public Epic(Type type, String name, String description) {
+    super(type, name, description);
     calculateStatus();
+  }
+
+  public Epic(Type type, String name, String description, Status status, int id) {
+    super(type, name, description, status, id);
+
   }
 
   public List<Subtask> getSubtasks() {
