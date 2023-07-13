@@ -6,29 +6,11 @@ public class Main {
 
   public static void main(String[] args) {
     TaskManager inMemoryTaskManager = Managers.getDefault();
-    Task task = new Task(
-      Type.TASK,
-      "В магаз",
-      "Купить 5 шоколадок",
-      Status.NEW
-    );
-    Task task2 = new Task(
-      Type.TASK,
-      "В Макдак",
-      "Купить пару флурри и роял",
-      Status.NEW
-    );
+    Task task = new Task(Type.TASK, "В магаз", "Купить 5 шоколадок", Status.NEW);
+    Task task2 = new Task(Type.TASK, "В Макдак", "Купить пару флурри и роял", Status.NEW);
 
-    Epic epic1 = new Epic(
-      Type.EPIC,
-      "Подготовка к путешествию",
-      "Подготовиться к поездке на озеро"
-    );
-    Epic epic2 = new Epic(
-      Type.EPIC,
-      "Ремонт в квартире",
-      "Сделать ремонт в падике"
-    );
+    Epic epic1 = new Epic(Type.EPIC, "Подготовка к путешествию", "Подготовиться к поездке на озеро");
+    Epic epic2 = new Epic(Type.EPIC, "Ремонт в квартире", "Сделать ремонт в падике");
 
     Subtask subtask1 = new Subtask(
       Type.SUBTASK,
@@ -98,13 +80,7 @@ public class Main {
       subtask3.getId()
     );
 
-    Task taskUpd = new Task(
-      Type.TASK,
-      "Лучше в погреб",
-      "За свеклой",
-      Status.IN_PROGRESS,
-      task.getId()
-    );
+    Task taskUpd = new Task(Type.TASK, "Лучше в погреб", "За свеклой", Status.IN_PROGRESS, task.getId());
 
     inMemoryTaskManager.updateAnyTypeOfTask(subtask3.getId(), subtask3Upd);
     inMemoryTaskManager.updateAnyTypeOfTask(task.getId(), taskUpd);

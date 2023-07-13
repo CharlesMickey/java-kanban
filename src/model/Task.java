@@ -5,7 +5,7 @@ import java.util.Objects;
 public class Task {
 
   private static int idCount = 0;
-  private  Type type;
+  private Type type;
   private int id;
   private String name;
   private String description;
@@ -39,6 +39,7 @@ public class Task {
   public Type getType() {
     return type;
   }
+
   public int getId() {
     return id;
   }
@@ -97,5 +98,4 @@ public class Task {
   public int hashCode() {
     return Objects.hash(id, name, description);
   }
-
 }

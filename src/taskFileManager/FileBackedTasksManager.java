@@ -14,9 +14,7 @@ import model.*;
 import taskManager.InMemoryTaskManager;
 import taskManager.TaskManager;
 
-public class FileBackedTasksManager
-  extends InMemoryTaskManager
-  implements TaskManager {
+public class FileBackedTasksManager extends InMemoryTaskManager implements TaskManager {
 
   private final Path filePath;
   private final String CSV_HEAD = "id,type,name,status,description,epic";
@@ -27,12 +25,7 @@ public class FileBackedTasksManager
 
   static FileBackedTasksManager loadFromFile(String path) {
     FileBackedTasksManager fileBackedTasksManager = new FileBackedTasksManager(path);
-    try (
-      BufferedReader fileData = Files.newBufferedReader(
-        Path.of(path),
-        StandardCharsets.UTF_8
-      )
-    ) {
+    try (BufferedReader fileData = Files.newBufferedReader(Path.of(path), StandardCharsets.UTF_8)) {
       fileData.readLine();
       String line = fileData.readLine();
       while (fileData.ready()) {
@@ -54,7 +47,7 @@ public class FileBackedTasksManager
       }
 
       line = fileData.readLine();
-      if(line == null) {
+      if (line == null) {
         return fileBackedTasksManager;
       }
 
@@ -69,21 +62,14 @@ public class FileBackedTasksManager
         }
       }
     } catch (IOException exception) {
-      System.out.println(
-        "Произошла ошибка при получении данных в файл."
-      );
+      System.out.println("Произошла ошибка при получении данных в файл.");
     }
 
     return fileBackedTasksManager;
   }
 
   private void save() {
-    try (
-      BufferedWriter writer = Files.newBufferedWriter(
-        filePath,
-        StandardCharsets.UTF_8
-      )
-    ) {
+    try (BufferedWriter writer = Files.newBufferedWriter(filePath, StandardCharsets.UTF_8)) {
       writer.write(CSV_HEAD);
       writer.newLine();
 
@@ -104,9 +90,7 @@ public class FileBackedTasksManager
 
       writer.write(historyToString(getHistory()));
     } catch (IOException exception) {
-      throw new ManagerSaveException(
-        "Произошла ошибка при сохранении данных в файл."
-      );
+      throw new ManagerSaveException("Произошла ошибка при сохранении данных в файл.");
     }
   }
 
@@ -255,56 +239,36 @@ public class FileBackedTasksManager
   }
 
   public static void main(String[] args) {
-    FileBackedTasksManager fileBackedTasksManager = new FileBackedTasksManager(
-      "./resources/data.csv"
-    );
+    FileBackedTasksManager fileBackedTasksManager = new FileBackedTasksManager("./resources/data.csv");
 
-    Task task = new Task(
-            Type.TASK,
-            "В магаз",
-            "Купить 5 шоколадок",
-            Status.NEW
-    );
-    Task task2 = new Task(
-            Type.TASK,
-            "В Макдак",
-            "Купить пару флурри и роял",
-            Status.NEW
-    );
+    Task task = new Task(Type.TASK, "В магаз", "Купить 5 шоколадок", Status.NEW);
+    Task task2 = new Task(Type.TASK, "В Макдак", "Купить пару флурри и роял", Status.NEW);
 
-    Epic epic1 = new Epic(
-            Type.EPIC,
-            "Подготовка к путешествию",
-            "Подготовиться к поездке на озеро"
-    );
-    Epic epic2 = new Epic(
-            Type.EPIC,
-            "Ремонт в квартире",
-            "Сделать ремонт в падике"
-    );
+    Epic epic1 = new Epic(Type.EPIC, "Подготовка к путешествию", "Подготовиться к поездке на озеро");
+    Epic epic2 = new Epic(Type.EPIC, "Ремонт в квартире", "Сделать ремонт в падике");
 
     Subtask subtask1 = new Subtask(
-            Type.SUBTASK,
-            "Купить билеты",
-            "Купить билеты на поезд в Анапу",
-            Status.NEW,
-            epic1.getId()
+      Type.SUBTASK,
+      "Купить билеты",
+      "Купить билеты на поезд в Анапу",
+      Status.NEW,
+      epic1.getId()
     );
 
     Subtask subtask2 = new Subtask(
-            Type.SUBTASK,
-            "Забронировать отель",
-            "Забронировать номер в отеле в СПб",
-            Status.NEW,
-            epic1.getId()
+      Type.SUBTASK,
+      "Забронировать отель",
+      "Забронировать номер в отеле в СПб",
+      Status.NEW,
+      epic1.getId()
     );
 
     Subtask subtask3 = new Subtask(
-            Type.SUBTASK,
-            "Купить краску",
-            "Купить краску – фиолетовую",
-            Status.NEW,
-            epic2.getId()
+      Type.SUBTASK,
+      "Купить краску",
+      "Купить краску – фиолетовую",
+      Status.NEW,
+      epic2.getId()
     );
 
     fileBackedTasksManager.setTask(task.getId(), task);
@@ -325,7 +289,7 @@ public class FileBackedTasksManager
     fileBackedTasksManager.getSubtask(6);
     fileBackedTasksManager.getSubtask(7);
 
-    FileBackedTasksManager fbtm =  fileBackedTasksManager.loadFromFile("./resources/data.csv");
+    FileBackedTasksManager fbtm = fileBackedTasksManager.loadFromFile("./resources/data.csv");
 
     System.out.println("\nВесь список восстановленных задач");
     System.out.println(fbtm.getAllEpics());
