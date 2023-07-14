@@ -6,7 +6,6 @@ import java.util.List;
 import model.Epic;
 import model.Subtask;
 import model.Task;
-import taskFileManager.FileBackedTasksManager;
 
 public interface TaskManager {
   HashMap<Integer, Task> getTasks();
@@ -46,10 +45,6 @@ public interface TaskManager {
   List<Subtask> getSubtasksByEpicId(String epicId);
 
   void updateAnyTypeOfTask(Integer id, Task updatedTask);
-
-  static FileBackedTasksManager loadFromFile(String path) {
-    return null;
-  }
 
   List<Task> getHistory();
 }
