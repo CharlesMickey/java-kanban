@@ -4,7 +4,6 @@ import historyManager.HistoryManager;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-
 import manager.Managers;
 import model.Epic;
 import model.Subtask;
@@ -76,14 +75,16 @@ public class InMemoryTaskManager implements TaskManager {
   }
 
   private void removeSubtasksByEpicId(Integer epicId) {
-    subtasks.values().removeIf(subtask -> {
-      if(subtask.getEpicId().equals(epicId)) {
-        historyManager.remove(subtask.getId());
-        return true;
-      } else {
-        return false;
-      }
-    });
+    subtasks
+      .values()
+      .removeIf(subtask -> {
+        if (subtask.getEpicId().equals(epicId)) {
+          historyManager.remove(subtask.getId());
+          return true;
+        } else {
+          return false;
+        }
+      });
   }
 
   @Override
@@ -189,5 +190,7 @@ public class InMemoryTaskManager implements TaskManager {
   }
 
   @Override
-  public List<Task> getHistory() {return historyManager.getHistory();}
+  public List<Task> getHistory() {
+    return historyManager.getHistory();
+  }
 }
