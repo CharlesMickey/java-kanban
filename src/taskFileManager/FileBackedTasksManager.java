@@ -62,6 +62,7 @@ public class FileBackedTasksManager extends InMemoryTaskManager implements TaskM
         }
       }
     } catch (IOException exception) {
+      exception.printStackTrace();
       System.out.println("Произошла ошибка при получении данных в файл.");
     }
 
@@ -90,15 +91,17 @@ public class FileBackedTasksManager extends InMemoryTaskManager implements TaskM
 
       writer.write(historyToString(getHistory()));
     } catch (IOException exception) {
-      throw new ManagerSaveException("Произошла ошибка при сохранении данных в файл.");
+      exception.printStackTrace();
+      throw new ManagerSaveException("Произошла ошибка при сохранении данных в файл.", exception);
     }
   }
 
+  // С двойным append не сообразил что так можно)
   static String historyToString(List<Task> tasks) {
     StringBuilder history = new StringBuilder("");
 
     for (Task historyTask : tasks) {
-      history.append(historyTask.getId() + ",");
+      history.append(historyTask.getId()).append(",");
     }
     if (history.length() > 0) {
       history.setLength(history.length() - 1);
@@ -288,6 +291,14 @@ public class FileBackedTasksManager extends InMemoryTaskManager implements TaskM
     fileBackedTasksManager.getSubtask(5);
     fileBackedTasksManager.getSubtask(6);
     fileBackedTasksManager.getSubtask(7);
+
+    System.out.println("\nВесь список задач");
+    System.out.println(fileBackedTasksManager.getAllEpics());
+    System.out.println(fileBackedTasksManager.getAllTasks());
+    System.out.println(fileBackedTasksManager.getAllSubtasks());
+
+    System.out.println("\n История");
+    System.out.println(fileBackedTasksManager.getHistory());
 
     FileBackedTasksManager fbtm = fileBackedTasksManager.loadFromFile("./resources/data.csv");
 
