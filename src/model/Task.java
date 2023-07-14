@@ -17,6 +17,7 @@ public class Task {
     this.name = name;
     this.description = description;
     this.status = status;
+    idCount = idCount > id ? idCount : id;
   }
 
   public Task(Type type, String name, String description, Status status) {
