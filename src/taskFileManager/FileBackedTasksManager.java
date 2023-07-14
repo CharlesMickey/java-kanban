@@ -90,7 +90,6 @@ public class FileBackedTasksManager extends InMemoryTaskManager {
 
       writer.write(historyToString(getHistory()));
     } catch (IOException exception) {
-      exception.printStackTrace();
       throw new ManagerSaveException("Произошла ошибка при сохранении данных в файл.", exception);
     }
   }
