@@ -1,13 +1,11 @@
 import manager.Managers;
 import model.*;
-import taskFileManager.FileBackedTasksManager;
 import taskManager.TaskManager;
 
 public class Main {
 
   public static void main(String[] args) {
-    FileBackedTasksManager fileBackedTasksManager = new FileBackedTasksManager("./resources/data.csv");
-
+    TaskManager inMemoryTaskManager = Managers.getDefault();
     Task task = new Task(Type.TASK, "В магаз", "Купить 5 шоколадок", Status.NEW);
     Task task2 = new Task(Type.TASK, "В Макдак", "Купить пару флурри и роял", Status.NEW);
 
@@ -38,40 +36,73 @@ public class Main {
       epic2.getId()
     );
 
-    fileBackedTasksManager.setTask(task.getId(), task);
-    fileBackedTasksManager.setTask(task2.getId(), task2);
+    inMemoryTaskManager.setTask(task.getId(), task);
+    inMemoryTaskManager.setTask(task2.getId(), task2);
 
-    fileBackedTasksManager.setEpic(epic1.getId(), epic1);
-    fileBackedTasksManager.setEpic(epic2.getId(), epic2);
+    inMemoryTaskManager.setEpic(epic1.getId(), epic1);
+    inMemoryTaskManager.setEpic(epic2.getId(), epic2);
 
-    fileBackedTasksManager.setSubtask(subtask1.getId(), subtask1);
-    fileBackedTasksManager.setSubtask(subtask2.getId(), subtask2);
-    fileBackedTasksManager.setSubtask(subtask3.getId(), subtask3);
+    inMemoryTaskManager.setSubtask(subtask1.getId(), subtask1);
+    inMemoryTaskManager.setSubtask(subtask2.getId(), subtask2);
+    inMemoryTaskManager.setSubtask(subtask3.getId(), subtask3);
 
-    fileBackedTasksManager.getTask(1);
-    fileBackedTasksManager.getTask(2);
-    fileBackedTasksManager.getEpic(3);
-    fileBackedTasksManager.getEpic(4);
-    fileBackedTasksManager.getSubtask(5);
-    fileBackedTasksManager.getSubtask(6);
-    fileBackedTasksManager.getSubtask(7);
+    inMemoryTaskManager.getTask(1);
+    inMemoryTaskManager.getTask(2);
+    inMemoryTaskManager.getEpic(3);
+    inMemoryTaskManager.getEpic(4);
+    inMemoryTaskManager.getSubtask(5);
+    inMemoryTaskManager.getSubtask(6);
+    inMemoryTaskManager.getSubtask(7);
+    inMemoryTaskManager.getTask(1);
+    inMemoryTaskManager.getTask(2);
+    inMemoryTaskManager.getTask(1);
+    inMemoryTaskManager.getTask(2);
+    inMemoryTaskManager.getTask(1);
+    inMemoryTaskManager.getTask(2);
+
+    System.out.println("\nИстория");
+
+    System.out.println(inMemoryTaskManager.getHistory());
+
+    System.out.println("\nДобавили");
+    System.out.println(inMemoryTaskManager.getEpics());
+    System.out.println(inMemoryTaskManager.getTasks());
+    System.out.println(inMemoryTaskManager.getSubtasks());
+
+    System.out.println("\nОбновили");
+
+    Subtask subtask3Upd = new Subtask(
+      Type.SUBTASK,
+      "Остаемся в Ленинграде",
+      "Идем в Бикмагентс",
+      Status.DONE,
+      subtask3.getEpicId(),
+      subtask3.getId()
+    );
+
+    Task taskUpd = new Task(Type.TASK, "Лучше в погреб", "За свеклой", Status.IN_PROGRESS, task.getId());
+
+    inMemoryTaskManager.updateAnyTypeOfTask(subtask3.getId(), subtask3Upd);
+    inMemoryTaskManager.updateAnyTypeOfTask(task.getId(), taskUpd);
 
     System.out.println("\nВесь список задач");
-    System.out.println(fileBackedTasksManager.getAllEpics());
-    System.out.println(fileBackedTasksManager.getAllTasks());
-    System.out.println(fileBackedTasksManager.getAllSubtasks());
 
-    System.out.println("\n История");
-    System.out.println(fileBackedTasksManager.getHistory());
+    System.out.println(inMemoryTaskManager.getAllEpics());
+    System.out.println(inMemoryTaskManager.getAllTasks());
+    System.out.println(inMemoryTaskManager.getAllSubtasks());
 
-    FileBackedTasksManager fbtm = fileBackedTasksManager.loadFromFile("./resources/data.csv");
+    inMemoryTaskManager.deleteTaskOfAnyTypeById(epic1.getId());
+    inMemoryTaskManager.deleteTaskOfAnyTypeById(task2.getId());
+    inMemoryTaskManager.deleteTaskOfAnyTypeById(subtask3.getId());
 
-    System.out.println("\nВесь список восстановленных задач");
-    System.out.println(fbtm.getAllEpics());
-    System.out.println(fbtm.getAllTasks());
-    System.out.println(fbtm.getAllSubtasks());
+    System.out.println("\nУдалили");
 
-    System.out.println("\nВосстановленная история");
-    System.out.println(fbtm.getHistory());
+    System.out.println(inMemoryTaskManager.getEpics());
+    System.out.println(inMemoryTaskManager.getTasks());
+    System.out.println(inMemoryTaskManager.getSubtasks());
+
+    System.out.println("\nИстория");
+
+    System.out.println(inMemoryTaskManager.getHistory());
   }
 }
