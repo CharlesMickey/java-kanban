@@ -93,7 +93,6 @@ public class FileBackedTasksManager extends InMemoryTaskManager {
     }
   }
 
-  // С двойным append не сообразил что так можно)
   static String historyToString(List<Task> tasks) {
     StringBuilder history = new StringBuilder("");
 
