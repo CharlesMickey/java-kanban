@@ -6,7 +6,7 @@ import taskManager.TaskManager;
 public class Main {
 
   public static void main(String[] args) {
-    TaskManager fileBackedTasksManager = Managers.getDefault("./resources/data.csv");
+    TaskManager fileBackedTasksManager = Managers.getDefault();
 
     Task task = new Task(Type.TASK, "В магаз", "Купить 5 шоколадок", Status.NEW);
     Task task2 = new Task(Type.TASK, "В Макдак", "Купить пару флурри и роял", Status.NEW);
