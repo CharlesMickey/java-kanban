@@ -40,7 +40,7 @@ public class InMemoryHistoryManager implements HistoryManager {
     taskList.linkLast(task);
   }
 
-  private class CustomLinkedList {
+  class CustomLinkedList {
 
     private Node head;
     private Node tail;
@@ -95,7 +95,7 @@ public class InMemoryHistoryManager implements HistoryManager {
     }
   }
 
-  private class Node {
+  class Node {
 
     public Task task;
     public Node next;

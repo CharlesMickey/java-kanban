@@ -1,3 +1,4 @@
+import java.time.LocalDateTime;
 import manager.Managers;
 import model.*;
 import taskFileManager.FileBackedTasksManager;
@@ -8,7 +9,14 @@ public class Main {
   public static void main(String[] args) {
     TaskManager fileBackedTasksManager = Managers.getDefault();
 
-    Task task = new Task(Type.TASK, "В магаз", "Купить 5 шоколадок", Status.NEW);
+    Task task = new Task(
+      Type.TASK,
+      "В магаз",
+      "Купить 5 шоколадок",
+      Status.NEW,
+      30,
+      LocalDateTime.of(2023, 7, 25, 15, 30)
+    );
     Task task2 = new Task(Type.TASK, "В Макдак", "Купить пару флурри и роял", Status.NEW);
 
     Epic epic1 = new Epic(Type.EPIC, "Подготовка к путешествию", "Подготовиться к поездке на озеро");
@@ -19,7 +27,9 @@ public class Main {
       "Купить билеты",
       "Купить билеты на поезд в Анапу",
       Status.NEW,
-      epic1.getId()
+      epic1.getId(),
+      30,
+      LocalDateTime.of(2023, 8, 25, 15, 30)
     );
 
     Subtask subtask2 = new Subtask(
@@ -27,7 +37,9 @@ public class Main {
       "Забронировать отель",
       "Забронировать номер в отеле в СПб",
       Status.NEW,
-      epic1.getId()
+      epic1.getId(),
+      30,
+      LocalDateTime.of(2023, 7, 25, 15, 30)
     );
 
     Subtask subtask3 = new Subtask(

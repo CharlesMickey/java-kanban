@@ -112,6 +112,9 @@ public class InMemoryTaskManager implements TaskManager {
     for (Epic epic : epics.values()) {
       epic.deleteAllSubtask();
       epic.calculateStatus();
+      epic.calculateStartTime();
+      epic.calculateDuration();
+      epic.calculateEndTime();
     }
   }
 
@@ -184,6 +187,9 @@ public class InMemoryTaskManager implements TaskManager {
         if (epic != null) {
           epic.updateSubtask(oldSubtask, (Subtask) updatedTask);
           epic.calculateStatus();
+          epic.calculateStartTime();
+          epic.calculateDuration();
+          epic.calculateEndTime();
         }
       }
     }

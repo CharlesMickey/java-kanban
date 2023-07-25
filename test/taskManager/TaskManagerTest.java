@@ -3,12 +3,11 @@ package taskManager;
 import static org.junit.jupiter.api.Assertions.*;
 
 import java.util.HashMap;
-import java.util.List;
 import model.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-public  abstract class TaskManagerTest<T extends TaskManager> {
+public abstract class TaskManagerTest<T extends TaskManager> {
 
   protected T taskManager;
 
@@ -140,7 +139,7 @@ public  abstract class TaskManagerTest<T extends TaskManager> {
 
   @Test
   void getAllTasks() {
-    Task task = new Task(Type.TASK, "Подготовка к путешествию", "Подготовиться к поездке на озеро");
+    Task task = new Task(Type.TASK, "В магаз", "Купить 5 шоколадок", Status.NEW);
 
     assertTrue(taskManager.getAllTasks().isEmpty(), "Список задач не пустой");
 
@@ -180,7 +179,7 @@ public  abstract class TaskManagerTest<T extends TaskManager> {
       Status.NEW,
       epic.getId()
     );
-    Task task = new Task(Type.TASK, "Подготовка к путешествию", "Подготовиться к поездке на озеро");
+    Task task = new Task(Type.TASK, "В магаз", "Купить 5 шоколадок", Status.NEW);
     taskManager.setEpic(epic.getId(), epic);
     taskManager.setSubtask(subtask.getId(), subtask);
     taskManager.setTask(task.getId(), task);
@@ -255,7 +254,7 @@ public  abstract class TaskManagerTest<T extends TaskManager> {
 
   @Test
   void deleteAllTasks() {
-    Task task = new Task(Type.TASK, "Подготовка к путешествию", "Подготовиться к поездке на озеро");
+    Task task = new Task(Type.TASK, "В магаз", "Купить 5 шоколадок", Status.NEW);
 
     taskManager.setTask(task.getId(), task);
 
@@ -278,7 +277,7 @@ public  abstract class TaskManagerTest<T extends TaskManager> {
       Status.NEW,
       epic.getId()
     );
-    Task task = new Task(Type.TASK, "Подготовка к путешествию", "Подготовиться к поездке на озеро");
+    Task task = new Task(Type.TASK, "В магаз", "Купить 5 шоколадок", Status.NEW);
     taskManager.setEpic(epic.getId(), epic);
     taskManager.setSubtask(subtask.getId(), subtask);
     taskManager.setTask(task.getId(), task);

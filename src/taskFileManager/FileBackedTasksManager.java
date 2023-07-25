@@ -8,6 +8,8 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import model.*;
@@ -16,7 +18,7 @@ import taskManager.InMemoryTaskManager;
 public class FileBackedTasksManager extends InMemoryTaskManager {
 
   private final Path filePath;
-  private final String CSV_HEAD = "id,type,name,status,description,epic";
+  private final String CSV_HEAD = "id,type,name,status,description, duration, startTime, epic";
 
   public FileBackedTasksManager(String defaultFilePath) {
     this.filePath = Paths.get(defaultFilePath);
@@ -46,7 +48,7 @@ public class FileBackedTasksManager extends InMemoryTaskManager {
       }
 
       line = fileData.readLine();
-      if (line == null) {
+      if (line == null || line.isEmpty()) {
         return fileBackedTasksManager;
       }
 
@@ -67,7 +69,7 @@ public class FileBackedTasksManager extends InMemoryTaskManager {
     return fileBackedTasksManager;
   }
 
-  private void save() {
+  protected void save() {
     try (BufferedWriter writer = Files.newBufferedWriter(filePath, StandardCharsets.UTF_8)) {
       writer.write(CSV_HEAD);
       writer.newLine();
@@ -120,32 +122,38 @@ public class FileBackedTasksManager extends InMemoryTaskManager {
     if (task instanceof Subtask) {
       Subtask subtask = (Subtask) task;
       return String.format(
-        "%d,%s,%s,%s,%s,%d",
+        "%d,%s,%s,%s,%s,%d,%s,%d",
         subtask.getId(),
         subtask.getType(),
         subtask.getName(),
         subtask.getStatus(),
         subtask.getDescription(),
+        subtask.getDuration(),
+        subtask.getStartTime(),
         subtask.getEpicId()
       );
     } else if (task instanceof Epic) {
       Epic epic = (Epic) task;
       return String.format(
-        "%d,%s,%s,%s,%s",
+        "%d,%s,%s,%s,%s,%d,%s",
         epic.getId(),
         epic.getType(),
         epic.getName(),
         epic.getStatus(),
-        epic.getDescription()
+        epic.getDescription(),
+        epic.getDuration(),
+        epic.getStartTime()
       );
     } else {
       return String.format(
-        "%d,%s,%s,%s,%s",
+        "%d,%s,%s,%s,%s,%d,%s",
         task.getId(),
         task.getType(),
         task.getName(),
         task.getStatus(),
-        task.getDescription()
+        task.getDescription(),
+        task.getDuration(),
+        task.getStartTime()
       );
     }
   }
@@ -157,14 +165,18 @@ public class FileBackedTasksManager extends InMemoryTaskManager {
     String name = taskStr[2];
     Status status = Status.valueOf(taskStr[3]);
     String description = taskStr[4];
+    int duration = Integer.parseInt(taskStr[5]);
+    LocalDateTime localDateTime = !taskStr[6].equals("null")
+      ? LocalDateTime.parse(taskStr[6], DateTimeFormatter.ISO_LOCAL_DATE_TIME)
+      : null;
 
     if (taskStr[1].equals(Type.TASK.name())) {
-      return new Task(Type.TASK, name, description, status, id);
+      return new Task(Type.TASK, name, description, status, id, duration, localDateTime);
     } else if (taskStr[1].equals(Type.EPIC.name())) {
-      return new Epic(Type.EPIC, name, description, status, id);
+      return new Epic(Type.EPIC, name, description, status, id, duration, localDateTime);
     } else {
-      int epicId = Integer.parseInt(taskStr[5]);
-      return new Subtask(Type.SUBTASK, name, description, status, epicId, id);
+      int epicId = Integer.parseInt(taskStr[7]);
+      return new Subtask(Type.SUBTASK, name, description, status, epicId, id, duration, localDateTime);
     }
   }
 
@@ -212,23 +224,23 @@ public class FileBackedTasksManager extends InMemoryTaskManager {
 
   @Override
   public Task getTask(Integer id) {
-    super.getTask(id);
+    Task task = super.getTask(id);
     save();
-    return null;
+    return task;
   }
 
   @Override
   public Subtask getSubtask(Integer id) {
-    super.getSubtask(id);
+    Subtask subtask = super.getSubtask(id);
     save();
-    return null;
+    return subtask;
   }
 
   @Override
   public Epic getEpic(Integer id) {
-    super.getEpic(id);
+    Epic epic = super.getEpic(id);
     save();
-    return null;
+    return epic;
   }
 
   @Override
