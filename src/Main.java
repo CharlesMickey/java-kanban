@@ -28,8 +28,8 @@ public class Main {
       "Купить билеты на поезд в Анапу",
       Status.NEW,
       epic1.getId(),
-      30,
-      LocalDateTime.of(2023, 8, 25, 15, 30)
+      32,
+      LocalDateTime.of(1986, 8, 19, 18, 29)
     );
 
     Subtask subtask2 = new Subtask(
@@ -39,14 +39,14 @@ public class Main {
       Status.NEW,
       epic1.getId(),
       30,
-      LocalDateTime.of(2023, 7, 25, 15, 30)
+      LocalDateTime.of(2025, 6, 25, 15, 31)
     );
 
     Subtask subtask3 = new Subtask(
       Type.SUBTASK,
       "Купить краску",
       "Купить краску – фиолетовую",
-      Status.NEW,
+      Status.DONE,
       epic2.getId()
     );
 
@@ -68,6 +68,9 @@ public class Main {
     fileBackedTasksManager.getSubtask(6);
     fileBackedTasksManager.getSubtask(7);
 
+    System.out.println("\nПо порядку становись");
+    System.out.println(fileBackedTasksManager.getPrioritizedTasks());
+
     System.out.println("\nВесь список задач");
     System.out.println(fileBackedTasksManager.getAllEpics());
     System.out.println(fileBackedTasksManager.getAllTasks());
@@ -85,5 +88,8 @@ public class Main {
 
     System.out.println("\nВосстановленная история");
     System.out.println(fbtm.getHistory());
+
+    System.out.println("\nПо порядку после восстановления становись");
+    System.out.println(fbtm.getPrioritizedTasks());
   }
 }

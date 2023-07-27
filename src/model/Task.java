@@ -3,7 +3,7 @@ package model;
 import java.time.LocalDateTime;
 import java.util.Objects;
 
-public class Task {
+public class Task implements Comparable<Task> {
 
   private static int idCount = 0;
   private Type type;
@@ -164,5 +164,23 @@ public class Task {
   @Override
   public int hashCode() {
     return Objects.hash(type, id, name, description, status);
+  }
+
+  @Override
+  public int compareTo(Task o) {
+    if (o.startTime == null && this.startTime == null) {
+      return Integer.compare(this.id, o.getId());
+    } else if (this.startTime == null) {
+      return 1;
+    } else if (o.startTime == null) {
+      return -1;
+    } else {
+      int startTimeComparison = this.startTime.compareTo(o.startTime);
+      if (startTimeComparison != 0) {
+        return startTimeComparison;
+      } else {
+        return Integer.compare(this.id, o.getId());
+      }
+    }
   }
 }

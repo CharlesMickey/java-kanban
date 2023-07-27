@@ -10,7 +10,6 @@ public class Epic extends Task {
   private Status status;
   private int duration;
   private LocalDateTime startTime;
-
   private LocalDateTime endTime;
 
   public Epic(Type type, String name, String description) {
@@ -39,7 +38,6 @@ public class Epic extends Task {
     this.status = status;
     this.duration = duration;
     this.startTime = startTime;
-    this.endTime = endTime;
   }
 
   public List<Subtask> getSubtasks() {

@@ -3,12 +3,15 @@ package taskManager;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Set;
 import model.Epic;
 import model.Subtask;
 import model.Task;
 
 public interface TaskManager {
   HashMap<Integer, Task> getTasks();
+
+  Set<Task> getPrioritizedTasks();
 
   void setTask(Integer id, Task task);
 
