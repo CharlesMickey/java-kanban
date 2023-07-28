@@ -45,8 +45,6 @@ public interface TaskManager {
 
   Epic getEpic(Integer id);
 
-  List<Subtask> getSubtasksByEpicId(String epicId);
-
   void updateAnyTypeOfTask(Integer id, Task updatedTask);
 
   List<Task> getHistory();

@@ -219,11 +219,6 @@ public class InMemoryTaskManager implements TaskManager {
   }
 
   @Override
-  public List<Subtask> getSubtasksByEpicId(String epicId) {
-    return epics.get(epicId).getSubtasks();
-  }
-
-  @Override
   public void updateAnyTypeOfTask(Integer id, Task updatedTask) {
     if (tasks.containsKey(id)) {
       tasks.put(id, updatedTask);

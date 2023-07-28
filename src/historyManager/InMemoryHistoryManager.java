@@ -40,13 +40,14 @@ public class InMemoryHistoryManager implements HistoryManager {
     taskList.linkLast(task);
   }
 
-  class CustomLinkedList {
+  // Тут мне нужно вовышать понимание работы с модификаторами. Пока не доведено до автомата)
+  private class CustomLinkedList {
 
     private Node head;
     private Node tail;
     private int size = 0;
 
-    public void linkLast(Task task) {
+    protected void linkLast(Task task) {
       Node oldTail = tail;
       Node newTail = new Node(task);
 
@@ -65,7 +66,7 @@ public class InMemoryHistoryManager implements HistoryManager {
       size++;
     }
 
-    public ArrayList<Task> getTasks() {
+    protected ArrayList<Task> getTasks() {
       ArrayList<Task> listTask = new ArrayList<>();
       Node curNode = head;
 
@@ -95,13 +96,13 @@ public class InMemoryHistoryManager implements HistoryManager {
     }
   }
 
-  class Node {
+  private class Node {
 
-    public Task task;
-    public Node next;
-    public Node prev;
+    protected Task task;
+    protected Node next;
+    protected Node prev;
 
-    public Node(Task task) {
+    protected Node(Task task) {
       this.task = task;
     }
   }

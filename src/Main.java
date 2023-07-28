@@ -47,7 +47,9 @@ public class Main {
       "Купить краску",
       "Купить краску – фиолетовую",
       Status.DONE,
-      epic2.getId()
+      epic2.getId(),
+      50,
+      LocalDateTime.of(2023, 7, 25, 15, 30)
     );
 
     fileBackedTasksManager.setTask(task.getId(), task);

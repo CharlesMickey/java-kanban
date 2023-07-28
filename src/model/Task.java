@@ -6,7 +6,7 @@ import java.util.Objects;
 public class Task implements Comparable<Task> {
 
   private static int idCount = 0;
-  private Type type;
+  private final Type type;
   private int id;
   private String name;
   private String description;
@@ -30,7 +30,7 @@ public class Task implements Comparable<Task> {
     this.status = status;
     this.duration = duration;
     this.startTime = startTime;
-    idCount = idCount > id ? idCount : id;
+    idCount = Math.max(idCount, id);
   }
 
   public Task(Type type, String name, String description, Status status, int duration, LocalDateTime startTime) {
@@ -50,7 +50,7 @@ public class Task implements Comparable<Task> {
     this.name = name;
     this.description = description;
     this.status = status;
-    idCount = idCount > id ? idCount : id;
+    idCount = Math.max(idCount, id);
   }
 
   public Task(Type type, String name, String description, Status status) {
