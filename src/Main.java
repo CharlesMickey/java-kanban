@@ -42,6 +42,7 @@ public class Main {
       LocalDateTime.of(2025, 6, 25, 15, 31)
     );
 
+
     Subtask subtask3 = new Subtask(
       Type.SUBTASK,
       "Купить краску",
