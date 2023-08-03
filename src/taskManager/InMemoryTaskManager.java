@@ -8,8 +8,8 @@ import model.Epic;
 import model.Subtask;
 import model.Task;
 
-public class InMemoryTaskManager implements TaskManager {
 
+public class InMemoryTaskManager implements TaskManager {
   private final HistoryManager historyManager = Managers.getDefaultHistory();
   private final HashMap<Integer, Task> tasks;
   private final HashMap<Integer, Epic> epics;
