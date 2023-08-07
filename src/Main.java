@@ -1,13 +1,24 @@
+import java.io.IOException;
+import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 import java.time.LocalDateTime;
 import manager.Managers;
 import model.*;
+import server.HttpTaskServer;
+import server.KVServer;
+import server.KVTaskClient;
 import taskFileManager.FileBackedTasksManager;
 import taskManager.TaskManager;
 
 public class Main {
 
-  public static void main(String[] args) {
-    TaskManager fileBackedTasksManager = Managers.getDefault();
+  public static void main(String[] args) throws IOException {
+    KVServer kvs = new KVServer();
+    kvs.start();
+    //    ts.stopServer();
+    TaskManager fileBackedTasksManager = Managers.getDefault(kvs.getServer());
+
+
 
     Task task = new Task(
       Type.TASK,
@@ -41,7 +52,6 @@ public class Main {
       30,
       LocalDateTime.of(2025, 6, 25, 15, 31)
     );
-
 
     Subtask subtask3 = new Subtask(
       Type.SUBTASK,
@@ -82,17 +92,13 @@ public class Main {
     System.out.println("\n История");
     System.out.println(fileBackedTasksManager.getHistory());
 
-    FileBackedTasksManager fbtm = FileBackedTasksManager.loadFromFile("./resources/data.csv");
 
-    System.out.println("\nВесь список восстановленных задач");
-    System.out.println(fbtm.getAllEpics());
-    System.out.println(fbtm.getAllTasks());
-    System.out.println(fbtm.getAllSubtasks());
+    new HttpTaskServer().startServer();
 
-    System.out.println("\nВосстановленная история");
-    System.out.println(fbtm.getHistory());
 
-    System.out.println("\nПо порядку после восстановления становись");
-    System.out.println(fbtm.getPrioritizedTasks());
+
+
   }
+
+
 }

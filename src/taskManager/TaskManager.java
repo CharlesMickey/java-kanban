@@ -15,6 +15,8 @@ public interface TaskManager {
 
   void setTask(Integer id, Task task);
 
+  Boolean checkIntersection(Task task);
+
   HashMap<Integer, Epic> getEpics();
 
   void setEpic(Integer id, Epic epic);

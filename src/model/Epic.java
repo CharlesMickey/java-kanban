@@ -1,5 +1,6 @@
 package model;
 
+import com.google.gson.annotations.SerializedName;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -7,9 +8,16 @@ import java.util.List;
 public class Epic extends Task {
 
   private List<Subtask> subtasks;
+
+  @SerializedName("taskStatus")
   private Status status;
+
+  @SerializedName("taskDuration")
   private int duration;
+
+  @SerializedName("taskStartTime")
   private LocalDateTime startTime;
+
   private LocalDateTime endTime;
 
   public Epic(Type type, String name, String description) {

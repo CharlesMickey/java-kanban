@@ -6,6 +6,7 @@ import java.io.BufferedWriter;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
+import java.nio.file.InvalidPathException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.time.LocalDateTime;
@@ -19,9 +20,16 @@ public class FileBackedTasksManager extends InMemoryTaskManager {
 
   private final Path filePath;
   private final String CSV_HEAD = "id,type,name,status,description, duration, startTime, epic";
+  private static final String PATH = "./resources/data.csv";
 
   public FileBackedTasksManager(String defaultFilePath) {
-    this.filePath = Paths.get(defaultFilePath);
+    Path path;
+    try {
+      path = Paths.get(defaultFilePath);
+    } catch (InvalidPathException e) {
+      path = Paths.get(PATH);
+    }
+    this.filePath = path;
   }
 
   public static FileBackedTasksManager loadFromFile(String path) {
@@ -95,7 +103,7 @@ public class FileBackedTasksManager extends InMemoryTaskManager {
     }
   }
 
-  static String historyToString(List<Task> tasks) {
+  protected static String historyToString(List<Task> tasks) {
     StringBuilder history = new StringBuilder("");
 
     for (Task historyTask : tasks) {

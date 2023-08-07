@@ -8,8 +8,8 @@ import model.Epic;
 import model.Subtask;
 import model.Task;
 
-
 public class InMemoryTaskManager implements TaskManager {
+
   private final HistoryManager historyManager = Managers.getDefaultHistory();
   private final HashMap<Integer, Task> tasks;
   private final HashMap<Integer, Epic> epics;
@@ -42,6 +42,9 @@ public class InMemoryTaskManager implements TaskManager {
     }
 
     for (Task task : listTasks) {
+      if (task.getId() == newTask.getId()) {
+        continue;
+      }
       if (task.getStartTime() != null && task.getDuration() > 0) {
         LocalDateTime oldEndTime = task.getEndTime().plusMinutes(task.getDuration());
         LocalDateTime newEndTime = newTask.getEndTime().plusMinutes(newTask.getDuration());
@@ -155,6 +158,7 @@ public class InMemoryTaskManager implements TaskManager {
 
   @Override
   public void deleteAllSubtasks() {
+    subtasks.values().forEach(t -> historyManager.remove(t.getId()));
     subtasks.clear();
     for (Epic epic : epics.values()) {
       epic.deleteAllSubtask();
@@ -168,6 +172,8 @@ public class InMemoryTaskManager implements TaskManager {
 
   @Override
   public void deleteAllEpics() {
+    epics.values().forEach(t -> historyManager.remove(t.getId()));
+    subtasks.values().forEach(t -> historyManager.remove(t.getId()));
     epics.clear();
     subtasks.clear();
     updatePrioritizedTasks();
@@ -175,6 +181,7 @@ public class InMemoryTaskManager implements TaskManager {
 
   @Override
   public void deleteAllTasks() {
+    tasks.values().forEach(t -> historyManager.remove(t.getId()));
     tasks.clear();
     updatePrioritizedTasks();
   }
