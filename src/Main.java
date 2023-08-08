@@ -1,13 +1,9 @@
 import java.io.IOException;
-import java.nio.charset.Charset;
-import java.nio.charset.StandardCharsets;
 import java.time.LocalDateTime;
 import manager.Managers;
 import model.*;
 import server.HttpTaskServer;
 import server.KVServer;
-import server.KVTaskClient;
-import taskFileManager.FileBackedTasksManager;
 import taskManager.TaskManager;
 
 public class Main {
@@ -15,10 +11,11 @@ public class Main {
   public static void main(String[] args) throws IOException {
     KVServer kvs = new KVServer();
     kvs.start();
-    //    ts.stopServer();
-    TaskManager fileBackedTasksManager = Managers.getDefault(kvs.getServer());
+//    kvs.stop();
 
+    TaskManager taskManager = Managers.getDefault(kvs.getServer());
 
+    new HttpTaskServer(taskManager).startServer();
 
     Task task = new Task(
       Type.TASK,
@@ -63,42 +60,35 @@ public class Main {
       LocalDateTime.of(2023, 7, 25, 15, 30)
     );
 
-    fileBackedTasksManager.setTask(task.getId(), task);
-    fileBackedTasksManager.setTask(task2.getId(), task2);
+    taskManager.setTask(task.getId(), task);
+    taskManager.setTask(task2.getId(), task2);
 
-    fileBackedTasksManager.setEpic(epic1.getId(), epic1);
-    fileBackedTasksManager.setEpic(epic2.getId(), epic2);
+    taskManager.setEpic(epic1.getId(), epic1);
+    taskManager.setEpic(epic2.getId(), epic2);
 
-    fileBackedTasksManager.setSubtask(subtask1.getId(), subtask1);
-    fileBackedTasksManager.setSubtask(subtask2.getId(), subtask2);
-    fileBackedTasksManager.setSubtask(subtask3.getId(), subtask3);
+    taskManager.setSubtask(subtask1.getId(), subtask1);
+    taskManager.setSubtask(subtask2.getId(), subtask2);
+    taskManager.setSubtask(subtask3.getId(), subtask3);
 
-    fileBackedTasksManager.getTask(1);
-    fileBackedTasksManager.getTask(2);
-    fileBackedTasksManager.getEpic(3);
-    fileBackedTasksManager.getEpic(4);
-    fileBackedTasksManager.getSubtask(5);
-    fileBackedTasksManager.getSubtask(6);
-    fileBackedTasksManager.getSubtask(7);
+    taskManager.getTask(1);
+    taskManager.getTask(2);
+    taskManager.getEpic(3);
+    taskManager.getEpic(4);
+    taskManager.getSubtask(5);
+    taskManager.getSubtask(6);
+    taskManager.getSubtask(7);
 
     System.out.println("\nПо порядку становись");
-    System.out.println(fileBackedTasksManager.getPrioritizedTasks());
+    System.out.println(taskManager.getPrioritizedTasks());
 
     System.out.println("\nВесь список задач");
-    System.out.println(fileBackedTasksManager.getAllEpics());
-    System.out.println(fileBackedTasksManager.getAllTasks());
-    System.out.println(fileBackedTasksManager.getAllSubtasks());
+    System.out.println(taskManager.getAllEpics());
+    System.out.println(taskManager.getAllTasks());
+    System.out.println(taskManager.getAllSubtasks());
 
     System.out.println("\n История");
-    System.out.println(fileBackedTasksManager.getHistory());
-
-
-    new HttpTaskServer().startServer();
-
-
+    System.out.println(taskManager.getHistory());
 
 
   }
-
-
 }

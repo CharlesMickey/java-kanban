@@ -15,7 +15,6 @@ import manager.Managers;
 import model.Epic;
 import model.Subtask;
 import model.Task;
-import taskFileManager.FileBackedTasksManager;
 import taskManager.TaskManager;
 
 public class HttpTaskServer {
@@ -26,9 +25,9 @@ public class HttpTaskServer {
   private Gson gson;
   private TaskManager taskManager;
 
-  public HttpTaskServer() throws IOException {
+  public HttpTaskServer(TaskManager taskManager) throws IOException {
     this.gson = Managers.getGson();
-    this.taskManager = Managers.getDefault("http://localhost:8078");
+    this.taskManager = taskManager;
     this.server = HttpServer.create(new InetSocketAddress("localhost", PORT), 0);
     server.createContext("/tasks", this::handleTasks);
   }
@@ -100,7 +99,6 @@ public class HttpTaskServer {
               return;
             }
             if (Pattern.matches("^/tasks/history", path) && query == null) {
-              System.out.println("23232" + taskManager.getHistory());
               String historyTasks = gson.toJson(taskManager.getHistory());
               writeText(exchange, historyTasks, 200);
               return;
@@ -272,10 +270,12 @@ public class HttpTaskServer {
                     return;
                 }
               } catch (JsonSyntaxException e) {
+                e.printStackTrace();
                 exchange.sendResponseHeaders(400, 0); // Bad Request - некорректный JSON
                 return;
               }
             } else {
+              System.out.println(45454545);
               exchange.sendResponseHeaders(400, 0); // Bad Request
               return;
             }
@@ -355,7 +355,6 @@ public class HttpTaskServer {
     Headers headers = exchange.getResponseHeaders();
     headers.set("Content-Type", "application/json;charset=utf-8");
     exchange.sendResponseHeaders(statusCode, 0);
-
     try (OutputStream os = exchange.getResponseBody()) {
       os.write(text.getBytes());
     }

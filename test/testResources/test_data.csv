@@ -1,6 +1,6 @@
-id,type,name,status,description,epic
-26,TASK,В магаз,NEW,Купить 5 шоколадок
-24,EPIC,Подготовка к путешествию,NEW,Подготовиться к поездке на озеро
-25,SUBTASK,Купить билеты,NEW,Купить билеты на поезд в Анапу,24
+id,type,name,status,description, duration, startTime, epic
+26,TASK,В магаз,NEW,Купить 5 шоколадок,0,null
+24,EPIC,Подготовка к путешествию,NEW,Подготовиться к поездке на озеро,0,null
+25,SUBTASK,Купить билеты,NEW,Купить билеты на поезд в Анапу,0,null,24
 
 24
