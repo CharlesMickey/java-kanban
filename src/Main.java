@@ -11,7 +11,7 @@ public class Main {
   public static void main(String[] args) throws IOException {
     KVServer kvs = new KVServer();
     kvs.start();
-//    kvs.stop();
+    //    kvs.stop();
 
     TaskManager taskManager = Managers.getDefault(kvs.getServer());
 
@@ -88,7 +88,5 @@ public class Main {
 
     System.out.println("\n История");
     System.out.println(taskManager.getHistory());
-
-
   }
 }

@@ -2,13 +2,12 @@ package manager;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import java.util.List;
 import model.Epic;
 import model.Subtask;
 import model.Task;
 import server.KVTaskClient;
 import taskFileManager.FileBackedTasksManager;
-
-import java.util.List;
 
 public class HttpTaskManager extends FileBackedTasksManager {
 
@@ -31,23 +30,18 @@ public class HttpTaskManager extends FileBackedTasksManager {
   }
 
   public void loadFromServer() {
-    List<Task> tasks = gson.fromJson(client.load("task"), new TypeToken<List<Task>>() {
-    }.getType());
-    List<Epic> epics = gson.fromJson(client.load("epic"), new TypeToken<List<Epic>>() {
-    }.getType());
-    List<Subtask> subtasks = gson.fromJson(client.load("subtask"), new TypeToken<List<Subtask>>() {
-    }.getType());
+    List<Task> tasks = gson.fromJson(client.load("task"), new TypeToken<List<Task>>() {}.getType());
+    List<Epic> epics = gson.fromJson(client.load("epic"), new TypeToken<List<Epic>>() {}.getType());
+    List<Subtask> subtasks = gson.fromJson(client.load("subtask"), new TypeToken<List<Subtask>>() {}.getType());
 
-    if(tasks != null) {
-      tasks.forEach(t-> setTask(t.getId(), t));
+    if (tasks != null) {
+      tasks.forEach(t -> setTask(t.getId(), t));
     }
-    if(epics != null) {
-      epics.forEach(t-> setEpic(t.getId(), t));
+    if (epics != null) {
+      epics.forEach(t -> setEpic(t.getId(), t));
     }
-    if(subtasks != null) {
-      subtasks.forEach(t-> setSubtask(t.getId(), t));
+    if (subtasks != null) {
+      subtasks.forEach(t -> setSubtask(t.getId(), t));
     }
-
-
   }
 }

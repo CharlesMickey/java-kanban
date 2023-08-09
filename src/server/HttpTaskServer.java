@@ -128,7 +128,7 @@ public class HttpTaskServer {
                       writeText(
                         exchange,
                         "Поля обязательные к заполнению у Задачи: Type, name, description, status. Задача не создана",
-                        400
+                        402
                       );
 
                       return;
@@ -137,7 +137,7 @@ public class HttpTaskServer {
                       writeText(
                         exchange,
                         "При создании задачи обнаружено пересечение по времени. Задача не создана.",
-                        400
+                        401
                       );
 
                       return;
@@ -220,7 +220,7 @@ public class HttpTaskServer {
                           400
                         );
                       } else {
-                        taskManager.setEpic(updateTask.getId(), (Epic) updateTask);
+                        taskManager.updateAnyTypeOfTask(updateTask.getId(), (Epic) updateTask);
                         writeText(exchange, "Новый эпик успешно обновлен.", 201);
                       }
                       return;
@@ -241,7 +241,7 @@ public class HttpTaskServer {
                           400
                         );
                       } else {
-                        taskManager.setTask(subtask.getId(), subtask);
+                        taskManager.updateAnyTypeOfTask(subtask.getId(), subtask);
                         writeText(exchange, "Новая подзадача успешно обновлена.", 201);
                       }
                       return;
@@ -260,8 +260,10 @@ public class HttpTaskServer {
                           400
                         );
                       } else {
-                        taskManager.setTask(updateTask.getId(), updateTask);
-                        writeText(exchange, "Новая задача успешно обновлена.", 201);
+                        String historyTasks = gson.toJson(updateTask);
+
+                        taskManager.updateAnyTypeOfTask(updateTask.getId(), updateTask);
+                        writeText(exchange, historyTasks, 201);
                       }
                       return;
                     }
@@ -275,7 +277,6 @@ public class HttpTaskServer {
                 return;
               }
             } else {
-              System.out.println(45454545);
               exchange.sendResponseHeaders(400, 0); // Bad Request
               return;
             }
@@ -306,6 +307,8 @@ public class HttpTaskServer {
               if (id != -1) {
                 System.out.println("Удалил task: " + id);
                 taskManager.deleteTaskOfAnyTypeById(id);
+                exchange.sendResponseHeaders(200, 0);
+
                 break;
               } else {
                 System.out.println("Bad id: " + id);
