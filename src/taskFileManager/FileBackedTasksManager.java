@@ -104,7 +104,7 @@ public class FileBackedTasksManager extends InMemoryTaskManager {
   }
 
   protected static String historyToString(List<Task> tasks) {
-    StringBuilder history = new StringBuilder("");
+    StringBuilder history = new StringBuilder();
 
     for (Task historyTask : tasks) {
       history.append(historyTask.getId()).append(",");

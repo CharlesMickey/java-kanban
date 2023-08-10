@@ -9,14 +9,16 @@ import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonToken;
 import com.google.gson.stream.JsonWriter;
 
+// Привет, Семён, да действительно проглядел!))
+
 public class LocalDateAdapter extends TypeAdapter<LocalDateTime> {
-    private static final DateTimeFormatter formatterWriter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss");
-    private static final DateTimeFormatter formatterReader = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss");
+    private static final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss");
+
 
     @Override
     public void write(final JsonWriter jsonWriter, final LocalDateTime localDate) throws IOException {
         if (localDate != null) {
-            jsonWriter.value(localDate.format(formatterWriter));
+            jsonWriter.value(localDate.format(formatter));
         } else {
             jsonWriter.nullValue();
         }
@@ -27,6 +29,6 @@ public class LocalDateAdapter extends TypeAdapter<LocalDateTime> {
             jsonReader.nextNull();
             return null;
         }
-        return LocalDateTime.parse(jsonReader.nextString(), formatterReader);
+        return LocalDateTime.parse(jsonReader.nextString(), formatter);
     }
 }

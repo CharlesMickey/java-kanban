@@ -6,6 +6,8 @@ import server.HttpTaskServer;
 import server.KVServer;
 import taskManager.TaskManager;
 
+// Семён, спасибо за ревью)
+
 public class Main {
 
   public static void main(String[] args) throws IOException {

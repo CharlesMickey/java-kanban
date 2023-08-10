@@ -21,9 +21,9 @@ public class HttpTaskServer {
 
   public static final Charset DEFAULT_CHARSET = StandardCharsets.UTF_8;
   private static final int PORT = 8081;
-  private HttpServer server;
-  private Gson gson;
-  private TaskManager taskManager;
+  private final HttpServer server;
+  private final Gson gson;
+  private final TaskManager taskManager;
 
   public HttpTaskServer(TaskManager taskManager) throws IOException {
     this.gson = Managers.getGson();

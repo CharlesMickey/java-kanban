@@ -11,8 +11,8 @@ import taskFileManager.FileBackedTasksManager;
 
 public class HttpTaskManager extends FileBackedTasksManager {
 
-  private KVTaskClient client;
-  private Gson gson;
+  private final KVTaskClient client;
+  private final Gson gson;
 
   public HttpTaskManager(String url) {
     super(url);
@@ -27,6 +27,7 @@ public class HttpTaskManager extends FileBackedTasksManager {
     client.put("epic", gson.toJson(getAllEpics()));
     client.put("subtask", gson.toJson(getAllSubtasks()));
     client.put("history", gson.toJson(historyToString(getHistory())));
+    client.put("prioritized", gson.toJson(getPrioritizedTasks()));
   }
 
   public void loadFromServer() {
